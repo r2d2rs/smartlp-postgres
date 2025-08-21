@@ -5,15 +5,5 @@ builder = "dockerfile"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "docker-entrypoint.sh postgres"
 restartPolicyType = "on-failure"
 restartPolicyMaxRetries = 3
-
-[healthcheck]
-path = "/"
-port = 5432
-initialDelaySeconds = 30
-periodSeconds = 10
-timeoutSeconds = 5
-successThreshold = 1
-failureThreshold = 3

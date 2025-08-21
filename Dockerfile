@@ -65,7 +65,7 @@ RUN echo "shared_preload_libraries = 'pg_cron,age'" >> /usr/share/postgresql/pos
 COPY init-extensions.sql /docker-entrypoint-initdb.d/
 
 # Set proper permissions
-RUN chmod 755 /docker-entrypoint-initdb.d/init-extensions.sql
+RUN chmod 644 /docker-entrypoint-initdb.d/init-extensions.sql
 
 # Expose PostgreSQL port
 EXPOSE 5432
