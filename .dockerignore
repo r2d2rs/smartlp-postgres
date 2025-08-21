@@ -1,0 +1,23 @@
+# Ignore git files
+.git
+.gitignore
+
+# Ignore documentation
+*.md
+LICENSE
+
+# Ignore local files
+.env
+.env.local
+*.log
+
+# Ignore CI/CD
+.github/
+.gitlab-ci.yml
+
+# Ignore test files
+test/
+tests/
+*_test.go
+*_test.py
+*.test.js
