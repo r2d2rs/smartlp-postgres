@@ -84,9 +84,20 @@ $$;
 -- Set up pg_cron to run in the current database
 UPDATE pg_database SET datname = current_database() WHERE datname = current_database();
 
--- Grant necessary permissions
-GRANT USAGE ON SCHEMA cron TO postgres;
-GRANT ALL ON ALL TABLES IN SCHEMA cron TO postgres;
+-- Grant necessary permissions (handle case where postgres role may not exist)
+DO $$
+BEGIN
+    -- Only grant to postgres if the role exists
+    IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'postgres') THEN
+        GRANT USAGE ON SCHEMA cron TO postgres;
+        GRANT ALL ON ALL TABLES IN SCHEMA cron TO postgres;
+    END IF;
+    
+    -- Always grant to the current user
+    EXECUTE format('GRANT USAGE ON SCHEMA cron TO %I', current_user);
+    EXECUTE format('GRANT ALL ON ALL TABLES IN SCHEMA cron TO %I', current_user);
+END
+$$;
 
 -- Success message
 DO $$
