@@ -74,6 +74,9 @@ EXPOSE 5432
 HEALTHCHECK --interval=10s --timeout=5s --retries=5 \
     CMD pg_isready -U postgres || exit 1
 
+# Set PGDATA to a subdirectory to avoid Railway volume mount issues
+ENV PGDATA=/var/lib/postgresql/data/pgdata
+
 # Labels for documentation
 LABEL maintainer="Chaki Team" \
       description="PostgreSQL 15 with pgvector, temporal_tables, pg_cron, and Apache AGE" \
